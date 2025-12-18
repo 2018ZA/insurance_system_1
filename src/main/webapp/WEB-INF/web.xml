@@ -5,7 +5,7 @@
          https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <display-name>Insurance System</display-name>
+    <display-name>Insurance_system</display-name>
 
     <!-- Spring Context Configuration -->
     <context-param>
