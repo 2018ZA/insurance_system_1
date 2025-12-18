@@ -8,6 +8,7 @@
 /Users/vlad/Desktop/учеба/курсовая/insurance_system_1/src/main/java/com/insurance_system/util/SessionUtils.java
 /Users/vlad/Desktop/учеба/курсовая/insurance_system_1/src/main/java/com/insurance_system/entity/UserRole.java
 /Users/vlad/Desktop/учеба/курсовая/insurance_system_1/src/main/java/com/insurance_system/entity/Client.java
+/Users/vlad/Desktop/учеба/курсовая/insurance_system_1/src/main/java/com/insurance_system/controller/HomeController.java
 /Users/vlad/Desktop/учеба/курсовая/insurance_system_1/src/main/java/com/insurance_system/service/UserService.java
 /Users/vlad/Desktop/учеба/курсовая/insurance_system_1/src/main/java/com/insurance_system/dao/ContractStatusDAO.java
 /Users/vlad/Desktop/учеба/курсовая/insurance_system_1/src/main/java/com/insurance_system/interceptor/AuthInterceptor.java
