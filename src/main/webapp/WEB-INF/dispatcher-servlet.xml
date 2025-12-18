@@ -11,7 +11,9 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- Controller Scanning -->
-    <context:component-scan base-package="com.insurance_system.controller"/>
+    <context:component-scan base-package="com.insurance_system.controller, 
+                                      com.insurance_system.service, 
+                                      com.insurance_system.dao"/>
 
     <!-- MVC Annotations -->
     <mvc:annotation-driven/>

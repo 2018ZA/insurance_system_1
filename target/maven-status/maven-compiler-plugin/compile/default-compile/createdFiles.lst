@@ -26,4 +26,3 @@ com/insurance_system/controller/StatisticsController.class
 com/insurance_system/entity/UserRole.class
 com/insurance_system/service/StatisticsService.class
 com/insurance_system/entity/ClaimStatus.class
-com/insurance_system/controller/HomeController.class
