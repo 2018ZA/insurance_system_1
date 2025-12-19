@@ -1,14 +1,16 @@
 package com.insurance_system.service;
 
-import com.insurance_system.dao.ClientDAO;
-import com.insurance_system.entity.Client;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.insurance_system.dao.ClientDAO;
+import com.insurance_system.entity.Client;
 
 @Service
+@Transactional
 public class ClientService {
     
     @Autowired

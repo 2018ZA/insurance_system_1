@@ -1,14 +1,14 @@
 package com.insurance_system.dao;
 
-import com.insurance_system.entity.Client;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.insurance_system.entity.Client;
 
 @Repository
 public class ClientDAO {
@@ -16,32 +16,32 @@ public class ClientDAO {
     @Autowired
     private SessionFactory sessionFactory;
     
-    @Transactional
+    
     public List<Client> getAllClients() {
         Session session = sessionFactory.getCurrentSession();
         Query<Client> query = session.createQuery("FROM Client ORDER BY fullName", Client.class);
         return query.getResultList();
     }
     
-    @Transactional
+    
     public Client getClientById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Client.class, id);
     }
     
-    @Transactional
+    
     public void saveClient(Client client) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(client);
     }
     
-    @Transactional
+    
     public void updateClient(Client client) {
         Session session = sessionFactory.getCurrentSession();
         session.update(client);
     }
     
-    @Transactional
+    
     public void deleteClient(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Client client = session.get(Client.class, id);
@@ -50,7 +50,7 @@ public class ClientDAO {
         }
     }
     
-    @Transactional
+    
     public List<Client> searchClientsByName(String name) {
         Session session = sessionFactory.getCurrentSession();
         Query<Client> query = session.createQuery(
@@ -61,7 +61,7 @@ public class ClientDAO {
         return query.getResultList();
     }
     
-    @Transactional
+    
     public Client findClientByPassport(String series, String number) {
         Session session = sessionFactory.getCurrentSession();
         Query<Client> query = session.createQuery(
@@ -75,7 +75,7 @@ public class ClientDAO {
         return clients.isEmpty() ? null : clients.get(0);
     }
     
-    @Transactional
+    
     public Client findClientByPhone(String phone) {
         Session session = sessionFactory.getCurrentSession();
         Query<Client> query = session.createQuery(
@@ -88,7 +88,7 @@ public class ClientDAO {
         return clients.isEmpty() ? null : clients.get(0);
     }
     
-    @Transactional
+    
     public long getClientsCount() {
         Session session = sessionFactory.getCurrentSession();
         Query<Long> query = session.createQuery("SELECT COUNT(*) FROM Client", Long.class);
