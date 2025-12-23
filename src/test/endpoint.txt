@@ -1,0 +1,43 @@
+Основные страницы:
+http://localhost:8080/insurance/ → Главная
+
+http://localhost:8080/insurance/dashboard → Панель управления
+
+http://localhost:8080/insurance/login → Вход
+
+http://localhost:8080/insurance/about → Об авторе
+
+Управление клиентами:
+http://localhost:8080/insurance/clients → Список клиентов -
+
+http://localhost:8080/insurance/clients/add → Добавить клиента
+
+http://localhost:8080/insurance/clients/view/{id} → Просмотр клиента
+
+http://localhost:8080/insurance/clients/edit/{id} → Редактировать клиента
+
+http://localhost:8080/insurance/clients/search → Поиск клиентов
+
+Управление договорами:
+http://localhost:8080/insurance/contracts → Список договоров
+
+http://localhost:8080/insurance/contracts/add → Добавить договор
+
+http://localhost:8080/insurance/contracts/by-client/{clientId} → Договоры клиента
+
+http://localhost:8080/insurance/contracts/search → Поиск договоров
+
+Управление пользователями:
+http://localhost:8080/insurance/users → Список пользователей
+
+http://localhost:8080/insurance/users/add → Добавить пользователя
+
+http://localhost:8080/insurance/users/toggle-status/{id} → Изменить статус
+
+Статистика:
+http://localhost:8080/insurance/statistics → Общая статистика
+
+http://localhost:8080/insurance/statistics/by-type → По типам страхования
+
+http://localhost:8080/insurance/statistics/by-status → По статусам
+
