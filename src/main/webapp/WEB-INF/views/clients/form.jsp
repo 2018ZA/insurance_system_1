@@ -1,18 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%-- Включаем общие части макета --%>
 <jsp:include page="../layout/header.jsp"/>
 <jsp:include page="../layout/sidebar.jsp"/>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+    <%-- Шапка страницы с заголовком и кнопкой назад --%>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">${pageTitle}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
+            <%-- Кнопка "Назад" - ведет на список клиентов --%>
             <a href="${pageContext.request.contextPath}/clients" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left me-1"></i>Назад к списку
             </a>
         </div>
     </div>
     
+    <%-- Основной контент формы --%>
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="card">
@@ -20,6 +25,7 @@
                     <h5 class="mb-0">${pageTitle}</h5>
                 </div>
                 <div class="card-body">
+                    <%-- Блок для отображения ошибок из параметров запроса --%>
                     <c:if test="${not empty param.error}">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             ${param.error}
@@ -27,9 +33,16 @@
                         </div>
                     </c:if>
                     
+                    <%-- Основная форма для создания/редактирования клиента --%>
+                    <%-- 
+                        formAction - динамический URL из контроллера
+                        Обычно "/clients/save" для создания или "/clients/update" для редактирования
+                    --%>
                     <form action="${formAction}" method="post">
+                        <%-- Скрытое поле для ID клиента (используется при редактировании) --%>
                         <input type="hidden" name="id" value="${client.id}">
                         
+                        <%-- Поле "ФИО" (обязательное) --%>
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="fullName" class="form-label">
@@ -43,6 +56,7 @@
                             </div>
                         </div>
                         
+                        <%-- Поля паспортных данных --%>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="passportSeries" class="form-label">Серия паспорта</label>
@@ -56,6 +70,7 @@
                             </div>
                         </div>
                         
+                        <%-- Контактные данные --%>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="phone" class="form-label">
@@ -74,6 +89,7 @@
                             </div>
                         </div>
                         
+                        <%-- Кнопки действий --%>
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary">
@@ -91,11 +107,15 @@
     </div>
 </main>
 
+<%-- JavaScript для валидации формы на стороне клиента --%>
 <script>
     // Валидация формы
     (function() {
         'use strict'
         
+        // Находим все формы, которые требуют валидации
+        // Примечание: в текущей форме нет класса 'needs-validation' 
+        // - возможно, нужно добавить его к тегу <form>
         var forms = document.querySelectorAll('.needs-validation')
         
         Array.prototype.slice.call(forms)
@@ -112,4 +132,5 @@
     })()
 </script>
 
+<%-- Включаем футер --%>
 <jsp:include page="../layout/footer.jsp"/>

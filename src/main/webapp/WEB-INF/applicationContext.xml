@@ -10,45 +10,57 @@
        http://www.springframework.org/schema/tx
        https://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- Component Scanning -->
-    <context:component-scan base-package="com.insurance_system">
-        <context:exclude-filter type="annotation" 
-            expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+    <!-- Включить сканирование компонентов и аннотаций -->
+    <context:component-scan base-package="com.insurance_system"/>
+    <context:annotation-config/>
+    
+    <!-- Загрузка свойств из внешнего файла (БЕЗОПАСНОСТЬ И ГИБКОСТЬ) -->
+    <context:property-placeholder location="classpath:database.properties"/>
 
-    <!-- Database Configuration -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!-- НАСТРОЙКА ПУЛА СОЕДИНЕНИЙ (ПРОИЗВОДИТЕЛЬНОСТЬ) -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/kurs_proj"/>
-        <property name="username" value="vlad"/>
-        <property name="password" value=""/>
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <!-- Настройки пула -->
+        <property name="initialSize" value="5"/>
+        <property name="maxTotal" value="20"/>
+        <property name="maxIdle" value="10"/>
+        <property name="minIdle" value="5"/>
+        <property name="maxWaitMillis" value="30000"/>
     </bean>
 
-    <!-- Hibernate Session Factory -->
-    <bean id="sessionFactory" 
-          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <!-- ФАБРИКА СЕССИЙ HIBERNATE -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="com.insurance_system.entity"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <!-- Диалект для PostgreSQL -->
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</prop>
+                <!-- Отображение SQL в логах (удобно для отладки) -->
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
+                <!-- Стратегия обновления схемы: update / validate / create-drop -->
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- Кодировка -->
                 <prop key="hibernate.connection.charSet">UTF-8</prop>
-                <prop key="hibernate.connection.characterEncoding">UTF-8</prop>
-                <prop key="hibernate.connection.useUnicode">true</prop>
+                <!-- Оптимизация для работы с коллекциями -->
+                <prop key="hibernate.enable_lazy_load_no_trans">false</prop>
+                <!-- Второй уровень кэша (опционально) -->
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
             </props>
         </property>
     </bean>
 
-    <!-- Transaction Manager -->
-    <bean id="transactionManager" 
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <!-- ДИСПЕТЧЕР ТРАНЗАКЦИЙ (КРИТИЧЕСКИ ВАЖНО!) -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- Enable Transaction Management -->
+    <!-- ВКЛЮЧЕНИЕ УПРАВЛЕНИЯ ТРАНЗАКЦИЯМИ ЧЕРЕЗ АННОТАЦИИ -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

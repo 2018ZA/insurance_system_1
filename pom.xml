@@ -15,7 +15,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring.version>5.3.23</spring.version>
-        <hibernate.version>5.6.15.Final</hibernate.version>
+        <hibernate.version>5.4.33.Final</hibernate.version>
         <servlet.version>4.0.1</servlet.version>
         <junit.version>4.13.2</junit.version>
         <jetty.version>9.4.51.v20230217</jetty.version>
@@ -107,7 +107,14 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.11</version>
         </dependency>
-
+        
+        <!-- ========== ЗАВИСИМОСТЬ ДЛЯ ПУЛА СОЕДИНЕНИЙ ========== -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        
         <!-- ========== TESTING ========== -->
         <dependency>
             <groupId>junit</groupId>
@@ -119,6 +126,7 @@
 
     <build>
         <finalName>insurance</finalName>
+        
         <plugins>
             <!-- Компилятор Java -->
             <plugin>
@@ -156,7 +164,6 @@
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webApp>
                         <contextPath>/insurance</contextPath>
-                        
                     </webApp>
                     <httpConnector>
                         <port>8080</port>

@@ -16,7 +16,7 @@ import com.insurance_system.entity.Client;
 import com.insurance_system.service.ClientService;
 
 @Controller
-@RequestMapping("/clients")
+@RequestMapping("insurance/clients")
 public class ClientController {
     
     @Autowired
@@ -44,13 +44,13 @@ public class ClientController {
             clientService.saveClient(client);
             return "redirect:/clients";
         } catch (RuntimeException e) {
-            // В реальном проекте нужно добавить flash атрибут с ошибкой
             return "redirect:/clients/add?error=" + e.getMessage();
         }
     }
     
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
+        // ✅ ИСПРАВЛЕНО: используем существующий метод getClientById
         Client client = clientService.getClientById(id);
         if (client == null) {
             return "redirect:/clients";
@@ -76,7 +76,8 @@ public class ClientController {
         try {
             clientService.deleteClient(id);
         } catch (RuntimeException e) {
-            // В реальном проекте нужно добавить обработку ошибок
+            // Можно добавить flash сообщение об ошибке
+            // redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
         return "redirect:/clients";
     }
@@ -102,7 +103,7 @@ public class ClientController {
             return "redirect:/clients";
         }
         model.addAttribute("client", client);
-        model.addAttribute("pageTitle", "Информация о клиенте");
+        model.addAttribute("pageTitle", "Информация о клиенте: " + client.getFullName());
         return "clients/view";
     }
 }
